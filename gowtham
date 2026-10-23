@@ -1,75 +1,18 @@
-class Buffer {
-    int item;
-    boolean available = false;
+ere is a simple JavaFX GUI design that displays text in a Label and an image in an ImageView, without writing any code.
+JavaFX Application
+Welcome to JavaFX GUI
+Картинка для рабочего стола: горы, гора, природа, пейзаж, вода, озеро, пруд, отражение
+ImageView — displays an image
+Hello, JavaFX!
+Label — displays text
+Steps to create it in Scene Builder
+Open JavaFX Scene Builder and create a new FXML document.
+Drag a VBox from the Containers section onto the layout.
+Drag a Label into the VBox and set its text to Hello, JavaFX!.
+Drag an ImageView into the VBox.
+In the ImageView properties, select an image file and adjust its fit width and fit height.
+Set the VBox alignment to CENTER and adjust spacing between elements.
+Save the layout as an FXML file.
+Result: A JavaFX window displaying a text label and an image using the Label and ImageView controls, respectively.
 
-    synchronized void produce(int value) {
-        try {
-            while (available) {
-                wait();
-            }
-
-            item = value;
-            System.out.println("Produced: " + item);
-            available = true;
-            notify();
-
-        } catch (InterruptedException e) {
-            System.out.println(e);
-        }
-    }
-
-    synchronized void consume() {
-        try {
-            while (!available) {
-                wait();
-            }
-
-            System.out.println("Consumed: " + item);
-            available = false;
-            notify();
-
-        } catch (InterruptedException e) {
-            System.out.println(e);
-        }
-    }
-}
-
-class Producer extends Thread {
-    Buffer b;
-
-    Producer(Buffer b) {
-        this.b = b;
-    }
-
-    public void run() {
-        for (int i = 1; i <= 5; i++) {
-            b.produce(i);
-        }
-    }
-}
-
-class Consumer extends Thread {
-    Buffer b;
-
-    Consumer(Buffer b) {
-        this.b = b;
-    }
-
-    public void run() {
-        for (int i = 1; i <= 5; i++) {
-            b.consume();
-        }
-    }
-}
-
-public class ProducerConsumer {
-    public static void main(String[] args) {
-        Buffer b = new Buffer();
-
-        Producer p = new Producer(b);
-        Consumer c = new Consumer(b);
-
-        p.start();
-        c.start();
-    }
-}
+Log in for personalized, step-by-step guidance.
